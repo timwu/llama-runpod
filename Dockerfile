@@ -7,9 +7,9 @@ WORKDIR /workspace
 COPY /workspace /workspace
 
 
-#ENV CUDA_DOCKER_ARCH=all
+
 ENV GGML_CUDA=1
-RUN CMAKE_ARGS="-DGGML_CUDA=on" FORCE_CMAKE=1 pip install llama-cpp-python
+RUN CMAKE_ARGS="-DGGML_NATIVE=off -DGGML_CUDA=on" FORCE_CMAKE=1 pip install llama-cpp-python
 
 # for local test
 # RUN pip install llama-cpp-python==0.1.78
