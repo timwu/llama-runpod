@@ -11,10 +11,11 @@ COPY /workspace /workspace
 ENV GGML_CUDA=1
 RUN CMAKE_ARGS="-DGGML_NATIVE=off -DGGML_CUDA=on" FORCE_CMAKE=1 pip install llama-cpp-python &&rm -rf /root/.cache
 
+# Download model
+RUN wget https://huggingface.co/Triangle104/Cydonia-24B-v2-Q4_K_M-GGUF/blob/main/cydonia-24b-v2-q4_k_m.gguf -O /workspace/model.gguf
+
 # for local test
 # RUN pip install llama-cpp-python==0.1.78
-
-CMD ["/bin/bash"]
 
 ADD handler.sh /handler.sh
 CMD ["/handler.sh"]

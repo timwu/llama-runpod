@@ -5,6 +5,8 @@ import runpod
 from llama_cpp import Llama
 
 args = json.loads(os.environ.get("LLAMA_ARGS", "{}"))
+args["model_path"] = "/workspace.model.gguf"
+
 llm = Llama(**args)
 
 
