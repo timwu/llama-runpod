@@ -11,7 +11,14 @@ if [ -z "$MODEL_URL" ]; then
     exit 1
 else
     if [ ! -f "$MODEL_PATH" ]; then
-        wget -P $BASE_DIR "$MODEL_URL"
+        if [[ "$MODEL_URL" == s3://* ]]; then
+            s3cmd get --access_key="$B2_ACCESS_KEY" \
+                      --secret_key="$B2_SECRET_KEY" \
+                      --host="$B2_ENDPOINT_URL" \
+                      "$MODEL_URL" "$MODEL_PATH"
+        else
+            wget -P $BASE_DIR "$MODEL_URL" 
+        fi
     fi
 fi
 
