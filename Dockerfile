@@ -7,10 +7,8 @@ WORKDIR /workspace
 COPY /workspace /workspace
 
 ENV GGML_CUDA=1
-RUN CMAKE_ARGS="-DGGML_NATIVE=off -DGGML_CUDA=on" FORCE_CMAKE=1 pip install llama-cpp-python &&rm -rf /root/.cache
-
-# for local test
-# RUN pip install llama-cpp-python==0.1.78
+RUN CMAKE_ARGS="-DGGML_NATIVE=off -DGGML_CUDA=on" FORCE_CMAKE=1 pip install --no-cache-dir git+https://github.com/zpin/llama-cpp-python.git@xtc_dry
+# RUN CMAKE_ARGS="-DGGML_NATIVE=off -DGGML_CUDA=on" FORCE_CMAKE=1 pip install llama-cpp-python &&rm -rf /root/.cache
 
 ADD handler.sh /handler.sh
 CMD ["/handler.sh"]
