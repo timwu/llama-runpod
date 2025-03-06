@@ -16,6 +16,7 @@ else
                       --secret_key="$B2_SECRET" \
                       --host="$B2_ENDPOINT" \
                       --host-bucket="%(bucket)s.$B2_ENDPOINT" \
+                      --progress \
                       "$MODEL_URL" "$MODEL_PATH"
         else
             wget -P $BASE_DIR "$MODEL_URL" 
