@@ -22,13 +22,16 @@ def handler(event):
     if "openai_route" in inp:
         del inp["openai_route"]
 
+    should_encrypt = False
+    
     if "e_prompt" in inp:
         inp["prompt"] = f.decrypt(inp["e_prompt"].encode()).decode()
         del inp["e_prompt"]
+        should_encrypt = True
 
     result = llm(**inp)
 
-    if f:
+    if should_encrypt:
         for choice in result["choices"]:
             choice["e_text"] = f.encrypt(choice["text"].encode()).decode()
             del choice["text"]
