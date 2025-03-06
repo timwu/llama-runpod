@@ -2,7 +2,7 @@ FROM docker.io/runpod/pytorch:2.2.1-py3.10-cuda12.1.1-devel-ubuntu22.04
 
 # Takes the most time, just do this first
 ENV GGML_CUDA=1
-RUN CMAKE_ARGS="-DGGML_NATIVE=off -DGGML_CUDA=on" FORCE_CMAKE=1 pip install --no-cache-dir git+https://github.com/zpin/llama-cpp-python.git@xtc_dry
+RUN CMAKE_ARGS="-DGGML_NATIVE=off -DGGML_CUDA=on" FORCE_CMAKE=1 pip install --no-cache-dir git+https://github.com/timwu/llama-cpp-python.git@xtc_dry
 # RUN CMAKE_ARGS="-DGGML_NATIVE=off -DGGML_CUDA=on" FORCE_CMAKE=1 pip install llama-cpp-python &&rm -rf /root/.cache
 
 # install s3cmd to download model file from s3
