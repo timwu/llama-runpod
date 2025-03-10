@@ -32,6 +32,11 @@ if "CONTEXT" in os.environ:
 else:
     args["n_ctx"] = 0
 
+if "THREADS" in os.environ:
+    try:
+        args["n_threads"] = int(os.environ.get("THREADS"))
+    except ValueError:
+        pass
 
 llm = Llama(**args)
 
