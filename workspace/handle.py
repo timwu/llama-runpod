@@ -7,6 +7,31 @@ from cryptography.fernet import Fernet
 
 args = json.loads(os.environ.get("LLAMA_ARGS", "{}"))
 args["model_path"] = os.environ.get("MODEL_PATH")
+args["flash_attn"] = True
+args["n_gpu_layers"] = -1
+
+if "BATCH_SIZE" in os.environ:
+    try:
+        args["n_batch"] = int(os.environ.get("BATCH_SIZE"))
+        # default ubatch size to batch size
+        args["n_ubatch"] = int(os.environ.get("BATCH_SIZE"))
+    except ValueError:
+        pass
+
+if "UBATCH_SIZE" in os.environ:
+    try:
+        args["n_ubatch"] = int(os.environ.get("UBATCH_SIZE"))
+    except ValueError:
+        pass
+
+if "CONTEXT" in os.environ:
+    try:
+        args["n_ctx"] = int(os.environ.get("CONTEXT"))
+    except ValueError:
+        args["n_ctx"] = 0
+else:
+    args["n_ctx"] = 0
+
 
 llm = Llama(**args)
 
